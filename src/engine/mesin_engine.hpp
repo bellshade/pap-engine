@@ -14,6 +14,7 @@ class MesinGame {
     bool inisialisasi();
     void jalankan();
     void shutdown();
+    void status();
 };
 
 #endif // !MESIN_ENGINE_HPP
