@@ -1,8 +1,12 @@
 #include "mesin_engine.hpp"
+#include "../core/time.hpp"
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/trigonometric.hpp>
 #include <iostream>
 #include <ostream>
+
+double last_x = 400, last_y = 300;
+bool first_mouse = true;
 
 bool MesinGame::inisialisasi() {
   window.lebar = 800;
@@ -26,6 +30,11 @@ bool MesinGame::inisialisasi() {
 void MesinGame::jalankan() {
   while (berjalan && !window.harus_tutup()) {
 
+    Time::update();
+
+    float dt = Time::dapatkan_delta();
+    float kecepatan = 1.0f;
+    
     input.update();
     
 
@@ -35,19 +44,19 @@ void MesinGame::jalankan() {
     }
 
     if (input.tombol_ditekan(KEY_W)) {
-      transform.posisi.y += 0.10f;
+      transform.posisi.y += kecepatan * dt;
     }
 
     if (input.tombol_ditekan(KEY_A)) {
-      transform.posisi.x -= 0.10f;
+      transform.posisi.x -= kecepatan * dt;
     }
 
     if (input.tombol_ditekan(KEY_S)) {
-      transform.posisi.y -= 0.10f;
+      transform.posisi.y -= kecepatan * dt;
     }
 
     if (input.tombol_ditekan(KEY_D)) {
-      transform.posisi.x += 0.10f;
+      transform.posisi.x += kecepatan * dt;
     }
 
     // if (input.mouse_ditekan(MOUSE_KIRI)) {
@@ -61,6 +70,24 @@ void MesinGame::jalankan() {
     if (input.gamepad_ditekan(BUTTON_A)) {
       std::cout << "tombol A di gamepad ditekan";
     }
+
+    double x, y;
+    input.ambil_posisi_mouse(x, y);
+
+    if (first_mouse) {
+      last_x = x;
+      last_y = y;
+      first_mouse = false;
+    }
+
+    double xoffset = x - last_x;
+    double yoffset = last_y - y;
+
+    last_x = x;
+    last_y = y;
+
+    camera.update_mouse(xoffset, yoffset);
+    camera.update_keyboard(input, dt);
 
     glm::mat4 model = transform.dapatkan_matrix();
     glm::mat4 view = camera.dapatkan_view_matrix();

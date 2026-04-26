@@ -21,6 +21,9 @@ add_executable(papEngine
 
   # camera
   src/camera/camera.cpp
+
+  # core
+  src/core/time.cpp
 )
 
 target_link_libraries(papEngine glfw OpenGL GLEW)

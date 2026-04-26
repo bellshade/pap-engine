@@ -16,6 +16,7 @@ bool Window::inisialisasi() {
     return false;
   }
 
+  glfwSetInputMode((GLFWwindow*)handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
   glfwMakeContextCurrent((GLFWwindow *)handle);
 
   return true;
