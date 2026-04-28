@@ -52,15 +52,53 @@ bool Renderer::inisialisasi() {
   }
 
   float vertices[] = {
-    0.0f,
-    0.5f,
-    0.0f,
-    -0.5f,
-    -0.5f,
-    0.0f,
-    0.5f,
-    -0.5f,
-    0.0f,
+    // INFO: bagian belakang kubus
+    -0.5f, -0.5f, -0.5f,
+    0.5f, -0.5f, -0.5f,
+    0.5f, 0.5f, -0.5f,
+    0.5f, 0.5f, -0.5f,
+    -0.5f, 0.5f, -0.5f
+      -0.5f, -0.5f, -0.5f
+
+      // INFO: bagian depan kubus
+      -0.5f, -0.5f, 0.5f,
+    0.5f, -0.5f, 0.5f,
+    0.5f, 0.5f, 0.5f,
+    0.5f, 0.5f, 0.5f,
+      -0.5f, 0.5f, 0.5f
+      -0.5f, -0.5f, 0.5f
+
+      // INFO: bagian kiri dari si kubus
+    -0.5f, 0.5f, 0.5f,
+    -0.5f, 0.5f, -0.5f,
+    -0.5f, -0.5f, -0.5f,
+    -0.5f, -0.5f, -0.5f,
+    -0.5f, -0.5f, 0.5f,
+    -0.5f, 0.5f, 0.5f,
+
+    // INFO: bagian kanan dari si kubus
+    0.5f, 0.5f, 0.5f,
+    0.5f, 0.5f, -0.5f,
+    0.5f, -0.5f, -0.5f,
+    0.5f, -0.5f, -0.5f,
+    0.5f, -0.5f, 0.5f,
+    0.5f, 0.5f, 0.5f,
+
+    // INFO: bagian bawah dari si kubus
+    -0.5f, -0.5f, -0.5f,
+    0.5f, -0.5f, -0.5f,
+    0.5f, -0.5f, 0.5f,
+    0.5f, -0.5f, 0.5f,
+    -0.5f, -0.5f, 0.5f,
+    -0.5f, -0.5f, -0.5f,
+
+    // INFO: bagian atas dari si kubus
+    -0.5f, 0.5f, -0.5f,
+    0.5f, 0.5f, -0.5f,
+    0.5f, 0.5f, 0.5f,
+    0.5f, 0.5f, 0.5f,
+    -0.5f, 0.5f, 0.5f,
+    -0.5f, 0.5f, -0.5f,
   };
 
   glGenVertexArrays(1, &VAO);
@@ -90,7 +128,7 @@ bool Renderer::inisialisasi() {
 
 void Renderer::clear() {
   glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Renderer::render(glm::mat4 model, glm::mat4 view, glm::mat4 projection) {
@@ -105,7 +143,7 @@ void Renderer::render(glm::mat4 model, glm::mat4 view, glm::mat4 projection) {
   glUniformMatrix4fv(loc_proj, 1, GL_FALSE, glm::value_ptr(projection));
 
   glBindVertexArray(VAO);
-  glDrawArrays(GL_TRIANGLES, 0, 3);
+  glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 void Renderer::shutdown() {

@@ -4,7 +4,7 @@
 #include <glm/trigonometric.hpp>
 
 Camera::Camera()
-    : posisi(0.0f, 0.0f, 3.0f), depan(0.0f, 0.0f, -1.0f),
+    : posisi(0.0f, 0.0f, 5.0f), depan(0.0f, 0.0f, -1.0f),
       atas(0.0f, 1.0f, 0.0f), yaw(-90.0f), pitch(0.0f), kecepatan(3.0f),
       sensitivitas(0.01f) {}
 
