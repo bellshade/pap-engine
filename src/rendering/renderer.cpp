@@ -46,7 +46,7 @@ unsigned int compile_shader(unsigned int type, const char *src) {
 }
 
 bool Renderer::inisialisasi() {
-  if (glewInit() != GLEW_OK) {
+  if (!glewInit()) {
     std::cerr << "GLEW gagal inisialisasi\n";
     return false;
   }
